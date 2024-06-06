@@ -62,6 +62,7 @@ class UserRepo {
               '{"name":"methalfa","address":"meet halfa","coordinates":[30.1572709,31.224779]}',
         },
       );
+
       final signUpModel = SignUpModel.fromJson(response);
       return Right(signUpModel);
     } on ServerException catch (e) {
@@ -104,9 +105,12 @@ class UserRepo {
         data: {
           ApiKeys.name: name,
           ApiKeys.phone: phone,
+          ApiKeys.location:
+          '{"name":"Bishbish","address":"Bishbish","coordinates":[30.1572709,31.224779]}'
           // ApiKeys.profilePic: await uploadImageToApi(profilePic!),
         },
       );
+
 
       final updateModel = UpdateModel.fromJson(response);
       return Right(updateModel);

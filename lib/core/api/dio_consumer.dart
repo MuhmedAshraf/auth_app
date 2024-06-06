@@ -51,7 +51,7 @@ class DioConsumer extends ApiConsumer {
   @override
   Future patch(
     String path, {
-    dynamic? data,
+    dynamic data,
     Map<String, dynamic>? queryParameters,
     bool isFormData = false,
   }) async {

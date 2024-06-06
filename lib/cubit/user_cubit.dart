@@ -28,6 +28,7 @@ class UserCubit extends Cubit<UserState> {
 
   //Sign Up Form key
   GlobalKey<FormState> signUpFormKey = GlobalKey();
+  GlobalKey<FormState> updateFormKey = GlobalKey();
 
   //Profile Pic
   XFile? profilePic;
@@ -202,9 +203,10 @@ class UserCubit extends Cubit<UserState> {
       name: newName.text.isEmpty ? userModel!.name : newName.text,
       phone: newPhone.text.isEmpty ? userModel!.phone : newPhone.text,
     );
+
     response.fold(
       (errMessage) => emit(LogOutFailure(errMessage: errMessage)),
-      (updateModel) => LogOutModel(message: updateModel.message),
+      (updateModel) =>emit (LogOutSuccess(message:updateModel.message )) ,
     );
   }
 }
