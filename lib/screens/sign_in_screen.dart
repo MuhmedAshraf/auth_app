@@ -15,6 +15,8 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Sign in Form key
+    GlobalKey<FormState> signInFormKey = GlobalKey();
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: BlocConsumer<UserCubit, UserState>(
@@ -22,13 +24,13 @@ class SignInScreen extends StatelessWidget {
           if (state is SignInSuccess) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(const SnackBar(content: Text('Success')));
-            // context.read<UserCubit>().getUserProfile();
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => const ProfileScreen(),
-            //   ),
-            // );
+            context.read<UserCubit>().getUserProfile();
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProfileScreen(),
+              ),
+            );
           } else if (state is SignInFailure) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.errMessage)));
@@ -39,7 +41,7 @@ class SignInScreen extends StatelessWidget {
             backgroundColor: const Color(0xffEEF1F3),
             body: Column(
               children: [
-                const PageHeader(),
+                 PageHeader(),
                 Expanded(
                   child: Container(
                     decoration: const BoxDecoration(
@@ -50,7 +52,7 @@ class SignInScreen extends StatelessWidget {
                     ),
                     child: SingleChildScrollView(
                       child: Form(
-                        key: context.read<UserCubit>().signInFormKey,
+                        key: signInFormKey,
                         child: Column(
                           children: [
                             const PageHeading(title: 'Sign-in'),

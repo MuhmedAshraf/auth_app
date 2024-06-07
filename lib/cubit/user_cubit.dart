@@ -1,8 +1,9 @@
+import 'package:auth_app1/cach/cache_helper.dart';
+import 'package:auth_app1/core/api/end_points.dart';
 import 'package:auth_app1/cubit/user_state.dart';
 import 'package:auth_app1/models/logOut_model.dart';
 import 'package:auth_app1/models/signIn_model.dart';
 import 'package:auth_app1/models/signUp_model.dart';
-import 'package:auth_app1/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,8 +18,7 @@ class UserCubit extends Cubit<UserState> {
       {required this.userRepo})
       : super(UserInitial());
 
-  //Sign in Form key
-  GlobalKey<FormState> signInFormKey = GlobalKey();
+
 
   //Sign in email
   TextEditingController signInEmail = TextEditingController();
@@ -26,9 +26,8 @@ class UserCubit extends Cubit<UserState> {
   //Sign in password
   TextEditingController signInPassword = TextEditingController();
 
-  //Sign Up Form key
-  GlobalKey<FormState> signUpFormKey = GlobalKey();
-  GlobalKey<FormState> updateFormKey = GlobalKey();
+
+
 
   //Profile Pic
   XFile? profilePic;
@@ -56,7 +55,7 @@ class UserCubit extends Cubit<UserState> {
 
   SignInModel? user;
   SignUpModel? signUpModel;
-  UserModel? userModel;
+
 
   signIn() async {
     // دي اول مرحلة في التعامل مع ميثود من ال api ولكن دي مش كلين كود لان ممكن يحصل مشاكل في الدايو نفسها فلازم مخليش اعتمادي ع الدايو وافصل كل حاجة عن بعضها عشان اقلل الاعتمادية وكمان اخلي الكلام ف متغيرات عشان اللغبطة واهندل حوار الايرورز
@@ -200,8 +199,9 @@ class UserCubit extends Cubit<UserState> {
   updateUserInfo() async {
     emit(UpdateLoading());
     final response = await userRepo.updateUserInfo(
-      name: newName.text.isEmpty ? userModel!.name : newName.text,
-      phone: newPhone.text.isEmpty ? userModel!.phone : newPhone.text,
+      name: newName.text.isEmpty ? CacheHelper().getData(key: ApiKeys.name) : newName.text,
+      phone: newPhone.text.isEmpty ? CacheHelper().getData(key: ApiKeys.id) : newPhone.text,
+      profilePic: profilePic
     );
 
     response.fold(

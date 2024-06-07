@@ -32,6 +32,9 @@ class UserRepo {
 
       CacheHelper().saveData(key: ApiKeys.token, value: user.token);
       CacheHelper().saveData(key: ApiKeys.id, value: decodedToken[ApiKeys.id]);
+      CacheHelper().saveData(key: ApiKeys.name, value: decodedToken[ApiKeys.name]);
+      CacheHelper().saveData(key: ApiKeys.phone, value: decodedToken["iat"]);
+
 
       return Right(user);
     } on ServerException catch (e) {
@@ -95,7 +98,7 @@ class UserRepo {
   Future<Either<String, UpdateModel>> updateUserInfo({
     required String name,
     required String phone,
-    // XFile? profilePic,
+     XFile? profilePic,
   }
       ) async {
     try {
@@ -106,8 +109,8 @@ class UserRepo {
           ApiKeys.name: name,
           ApiKeys.phone: phone,
           ApiKeys.location:
-          '{"name":"Bishbish","address":"Bishbish","coordinates":[30.1572709,31.224779]}'
-          // ApiKeys.profilePic: await uploadImageToApi(profilePic!),
+          '{"name":"Bishbish","address":"Bishbish","coordinates":[30.1572709,31.224779]}',
+           ApiKeys.profilePic: await uploadImageToApi(profilePic!),
         },
       );
 

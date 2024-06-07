@@ -14,8 +14,13 @@ import '../widgets/pick_image_widget.dart';
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
+
+
   @override
   Widget build(BuildContext context) {
+    //Sign Up Form key
+    GlobalKey<FormState> signUpFormKey = GlobalKey();
+
     return SafeArea(
       child: BlocConsumer<UserCubit, UserState>(
         listener: (context, state) {
@@ -41,10 +46,10 @@ class SignUpScreen extends StatelessWidget {
             backgroundColor: const Color(0xffEEF1F3),
             body: SingleChildScrollView(
               child: Form(
-                key: context.read<UserCubit>().signUpFormKey,
+                key: signUpFormKey,
                 child: Column(
                   children: [
-                    const PageHeader(),
+                     PageHeader(),
                     const PageHeading(title: 'Sign-up'),
                     //! Image
                     const PickImageWidget(),

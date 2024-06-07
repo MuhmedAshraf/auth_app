@@ -1,5 +1,6 @@
 import 'package:auth_app1/cubit/user_state.dart';
 import 'package:auth_app1/screens/profile_screen.dart';
+import 'package:auth_app1/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/user_cubit.dart';
@@ -14,6 +15,7 @@ class UpdateScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> updateFormKey = GlobalKey();
     return SafeArea(
       child: BlocConsumer<UserCubit, UserState>(
         listener: (context, state) {
@@ -23,9 +25,10 @@ class UpdateScreen extends StatelessWidget {
           } else if (state is UpdateSuccess) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message)));
-             context.read<UserCubit>().getUserProfile();
+            // context.read<UserCubit>().getUserProfile();
             Navigator.push(
-              context,MaterialPageRoute(builder: (context)=> const ProfileScreen())
+              context,
+              MaterialPageRoute(builder: (context)=> const SignInScreen())
             );
           }
         },
@@ -34,10 +37,10 @@ class UpdateScreen extends StatelessWidget {
             backgroundColor: const Color(0xffEEF1F3),
             body: SingleChildScrollView(
               child: Form(
-                key: context.read<UserCubit>().updateFormKey,
+                key: updateFormKey,
                 child: Column(
                   children: [
-                    const PageHeader(),
+                     PageHeader(image:'assets/images/update.png',),
                     const PageHeading(title: 'Update-Info'),
                     const PickImageWidget(),
                     const SizedBox(
